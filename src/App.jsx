@@ -1,4 +1,5 @@
-import { Container } from "@chakra-ui/react";
+import { Container, useMediaQuery } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import { Home } from "./components/Home";
 import Login from "./components/Login";
@@ -8,18 +9,17 @@ import Register from "./components/Register";
 import { AuthProvider } from "./context/authContext";
 
 const App = () => {
+
   return (
-    <Container
-      maxW="md"
-      border={"1px"}
-      borderColor={"gray.300"}
+    <Container as={"main"}
+      maxW="md" 
       borderRadius={"md"}
       p={5}
       mt={5}
       display={"flex"}
       flexDirection={"column"}
       justifyContent={"center"}
-    >
+    > 
       <AuthProvider>
         <Routes>
           <Route path="/" element={

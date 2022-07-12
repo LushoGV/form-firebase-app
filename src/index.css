@@ -13,3 +13,14 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+main{
+  border: 1px solid #cbd5e0;
+}
+
+
+@media (max-width: 500px) {
+  main{
+    border: none;
+  }
+}

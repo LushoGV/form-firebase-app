@@ -6,7 +6,7 @@ import AlertError from "./Alert";
 const RecoverPass = () => {
   const [error, setError] = useState();
   const [send, setSend] = useState();
-  const { resetPassword } = useAuthContext();
+  const { resetPassword, check, checkData } = useAuthContext();
   const inputRef = useRef(null);
 
   const handleResetPassword = async () => {
@@ -37,6 +37,7 @@ const RecoverPass = () => {
         name="email"
         placeholder="youremail@company.ltd"
         p={5}
+        onChange={(e)=>{checkData(e, 1)}}
       ></Input>
       {error && <AlertError error={error} />}
       {send && (
@@ -58,7 +59,14 @@ const RecoverPass = () => {
         height={"12"}
         mt={6}
         p={5}
+        _hover={{
+          bgColor: "blue.800"
+        }}
+        _active={{
+          bgColor: "blue.800"
+        }}
         onClick={handleResetPassword}
+        disabled = {check.email ? false : true}
       >
         Send
       </Button>

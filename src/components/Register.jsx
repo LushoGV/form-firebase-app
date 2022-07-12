@@ -10,7 +10,7 @@ const Register = () => {
     password: "",
   });
   const [error, setError] = useState();
-  const { signUp } = useAuthContext();
+  const { signUp, check, checkData } = useAuthContext();
   const navigate = useNavigate();
 
   const handleChange = ({ target: { name, value } }) =>
@@ -36,6 +36,7 @@ const Register = () => {
       }
     }
   };
+
 
   return (
     <>
@@ -72,7 +73,8 @@ const Register = () => {
               type="email"
               name="email"
               placeholder="youremail@company.ltd"
-              onChange={handleChange}
+              onChange={(e)=> {handleChange(e), checkData(e, 1)}}
+              onBlur={(e)=> checkData(e, 1)}
             />
           </Box>
           <Box
@@ -92,7 +94,8 @@ const Register = () => {
               name="password"
               id="password"
               placeholder="******"
-              onChange={handleChange}
+              onChange={(e)=> {handleChange(e), checkData(e, 2)}}
+              onBlur={(e)=> checkData(e, 2)}
             />
           </Box>
           <Button
@@ -102,7 +105,14 @@ const Register = () => {
             mt={3}
             p={6}
             mb={0}
+            _hover={{
+              bgColor: "blue.800"
+            }}
+            _active={{
+              bgColor: "blue.800"
+            }}
             onClick={(e) => handleSubmit(e)}
+            disabled = {check.email && check.pass ? false : true}
           >
             Sign up
           </Button>
@@ -125,6 +135,13 @@ const Register = () => {
               ml={1}
               fontWeight={"medium"}
               fontSize={"sm"}
+              _hover={{
+                color: "blue.600",
+                textDecoration: "underline"
+              }}
+              _active={{
+                color: "blue.800"
+              }}
               onClick={() => navigate("/login")}
             >
               Log in

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useAuthContext } from "../context/authContext";
 import { useNavigate } from "react-router-dom";
-import { Button, Input, Text, Box } from "@chakra-ui/react";
+import { Button, Input, Text, Box, Image } from "@chakra-ui/react";
 import AlertError from "./Alert";
 
 const Login = () => {
@@ -10,9 +10,9 @@ const Login = () => {
     password: "",
   });
   const [error, setError] = useState();
-  const { login, loginWithGoogle } = useAuthContext();
+  const { login, loginWithGoogle, check, checkData } = useAuthContext();
   const navigate = useNavigate();
-
+  
   const handleChange = ({ target: { name, value } }) =>
     setUser({ ...user, [name]: value });
 
@@ -43,6 +43,7 @@ const Login = () => {
       console.log(error.message);
     }
   };
+
 
   return (
     <>
@@ -77,7 +78,8 @@ const Login = () => {
               type="text"
               name="email"
               placeholder="youremail@company.ltd"
-              onChange={handleChange}
+              onChange={(e)=> {handleChange(e), checkData(e, 1)}}
+              onBlur={(e)=> checkData(e, 1)}
             />
           </Box>
           <Box
@@ -98,7 +100,8 @@ const Login = () => {
               name="password"
               id="password"
               placeholder="******"
-              onChange={handleChange}
+              onChange={(e)=> {handleChange(e), checkData(e, 2)}}
+              onBlur={(e)=> checkData(e, 2)}
             />
             <Text
               as={"a"}
@@ -109,6 +112,13 @@ const Login = () => {
               mt={1}
               fontWeight={"medium"}
               fontSize={"1xl"}
+              _hover={{
+                color: "blue.600",
+                textDecoration: "underline",
+              }}
+              _active={{
+                color: "blue.800",
+              }}
               onClick={() => navigate("/recover_password")}
             >
               Forgot password?
@@ -121,14 +131,39 @@ const Login = () => {
             m={3}
             mb={0}
             p={5}
+            _hover={{
+              bgColor: "blue.800",
+            }}
+            _active={{
+              bgColor: "blue.800",
+            }}
             onClick={(e) => handleSubmit(e)}
+            disabled = {check.email && check.pass ? false : true}
           >
             Login
           </Button>
         </Box>
       </form>
-      <Button onClick={handleGoogleSignIn} m={3} mb={0}>
-        Login with Google
+      <Button
+        onClick={handleGoogleSignIn}
+        m={3}
+        mb={0}
+        p={5}
+        bgColor={"white"}
+        border={"2px"}
+        borderColor={"gray.200"}
+        _hover={{
+          color: "gray.500"
+        }}
+        _active={{
+          bgColor: "gray.100"
+        }}
+      >
+        <Image src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/2048px-Google_%22G%22_Logo.svg.png"
+          width={5}
+          mr={3}
+        />
+        Continue with Google
       </Button>
       <Box mt={3} pb={1} display={"flex"} justifyContent={"center"}>
         <Text
@@ -149,6 +184,13 @@ const Login = () => {
           ml={1}
           fontWeight={"medium"}
           fontSize={"sm"}
+          _hover={{
+            color: "blue.600",
+            textDecoration: "underline",
+          }}
+          _active={{
+            color: "blue.800",
+          }}
           onClick={(e) => navigate("/register")}
         >
           Sign up

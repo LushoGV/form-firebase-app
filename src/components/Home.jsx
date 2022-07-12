@@ -1,4 +1,5 @@
 import { Box, Button, Text, Image } from "@chakra-ui/react";
+import { useEffect } from "react";
 import { useAuthContext } from "../context/authContext";
 
 export const Home = () => {
@@ -11,6 +12,7 @@ export const Home = () => {
       console.log(error);
     }
   };
+
 
   return (
     <Box display={"flex"} flexDirection={"column"}>
