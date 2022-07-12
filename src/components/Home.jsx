@@ -67,6 +67,12 @@ export const Home = () => {
         ml={0}
         mr={0}
         onClick={handleLogOut}
+        _hover={{
+          bgColor: "red.600",
+        }}
+        _active={{
+          bgColor: "red.600",
+        }}
       >
         Logout
       </Button>
