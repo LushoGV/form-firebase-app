@@ -6,7 +6,7 @@ import AlertError from "./Alert";
 const RecoverPass = () => {
   const [error, setError] = useState();
   const [send, setSend] = useState();
-  const { resetPassword, check, checkData } = useAuthContext();
+  const { resetPassword, check, checkData, clearAlert } = useAuthContext();
   const inputRef = useRef(null);
 
   const handleResetPassword = async () => {
@@ -37,8 +37,10 @@ const RecoverPass = () => {
         name="email"
         placeholder="youremail@company.ltd"
         p={5}
-        onChange={(e)=>{checkData(e, 1)}}
+        onBlur={(e)=>{checkData(e, 1)}}
+        onChange={(e)=>{clearAlert(e, 1)}}
       ></Input>
+       {check.errEmail && <AlertError error={check.errEmail} />}
       {error && <AlertError error={error} />}
       {send && (
         <Alert

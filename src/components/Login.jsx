@@ -10,7 +10,7 @@ const Login = () => {
     password: "",
   });
   const [error, setError] = useState();
-  const { login, loginWithGoogle, check, checkData } = useAuthContext();
+  const { login, loginWithGoogle, check, checkData, clearAlert } = useAuthContext();
   const navigate = useNavigate();
   
   const handleChange = ({ target: { name, value } }) =>
@@ -78,9 +78,10 @@ const Login = () => {
               type="text"
               name="email"
               placeholder="youremail@company.ltd"
-              onChange={(e)=> {handleChange(e), checkData(e, 1)}}
+              onChange={(e)=> {handleChange(e), clearAlert(e, 1) }}
               onBlur={(e)=> checkData(e, 1)}
             />
+            {check.errEmail && <AlertError error={check.errEmail} />}
           </Box>
           <Box
             display={"flex"}
@@ -100,9 +101,10 @@ const Login = () => {
               name="password"
               id="password"
               placeholder="******"
-              onChange={(e)=> {handleChange(e), checkData(e, 2)}}
+              onChange={(e)=> {handleChange(e), clearAlert(e, 2)}}
               onBlur={(e)=> checkData(e, 2)}
             />
+            {check.errPass && <AlertError error={check.errPass} />}
             <Text
               as={"a"}
               cursor={"pointer"}

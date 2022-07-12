@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useAuthContext } from "../context/authContext";
 import { useNavigate } from "react-router-dom";
-import { Box, Button, Input, Text } from "@chakra-ui/react";
+import { Alert, Box, Button, Input, Text } from "@chakra-ui/react";
 import AlertError from "./Alert";
 
 const Register = () => {
@@ -10,7 +10,7 @@ const Register = () => {
     password: "",
   });
   const [error, setError] = useState();
-  const { signUp, check, checkData } = useAuthContext();
+  const { signUp, check, checkData, clearAlert } = useAuthContext();
   const navigate = useNavigate();
 
   const handleChange = ({ target: { name, value } }) =>
@@ -36,7 +36,6 @@ const Register = () => {
       }
     }
   };
-
 
   return (
     <>
@@ -73,9 +72,12 @@ const Register = () => {
               type="email"
               name="email"
               placeholder="youremail@company.ltd"
-              onChange={(e)=> {handleChange(e), checkData(e, 1)}}
-              onBlur={(e)=> checkData(e, 1)}
+              onChange={(e) => {
+                handleChange(e),clearAlert(e,1)
+              }}
+              onBlur={(e) => checkData(e, 1)}
             />
+            {check.errEmail && <AlertError error={check.errEmail} />}
           </Box>
           <Box
             display={"flex"}
@@ -94,9 +96,12 @@ const Register = () => {
               name="password"
               id="password"
               placeholder="******"
-              onChange={(e)=> {handleChange(e), checkData(e, 2)}}
-              onBlur={(e)=> checkData(e, 2)}
+              onChange={(e) => {
+                handleChange(e),clearAlert(e,2)
+              }}
+              onBlur={(e) => checkData(e, 2)}
             />
+            {check.errPass && <AlertError error={check.errPass} />}
           </Box>
           <Button
             bgColor={"blue.500"}
@@ -106,13 +111,13 @@ const Register = () => {
             p={6}
             mb={0}
             _hover={{
-              bgColor: "blue.800"
+              bgColor: "blue.800",
             }}
             _active={{
-              bgColor: "blue.800"
+              bgColor: "blue.800",
             }}
             onClick={(e) => handleSubmit(e)}
-            disabled = {check.email && check.pass ? false : true}
+            disabled={check.email && check.pass ? false : true}
           >
             Sign up
           </Button>
@@ -137,10 +142,10 @@ const Register = () => {
               fontSize={"sm"}
               _hover={{
                 color: "blue.600",
-                textDecoration: "underline"
+                textDecoration: "underline",
               }}
               _active={{
-                color: "blue.800"
+                color: "blue.800",
               }}
               onClick={() => navigate("/login")}
             >
