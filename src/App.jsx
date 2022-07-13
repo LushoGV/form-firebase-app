@@ -1,5 +1,4 @@
-import { Container, useMediaQuery } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { Container } from "@chakra-ui/react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { Home } from "./components/Home";
 import Login from "./components/Login";

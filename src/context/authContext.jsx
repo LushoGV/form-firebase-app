@@ -40,34 +40,24 @@ export const AuthProvider = ({ children }) => {
   const resetPassword = (email) => sendPasswordResetEmail(auth, email);
 
   const checkData = (e, type) => {
-    if (type == 1) {
+    if (type === 1) {
       if (e.target.value != "") {
         setCheck({ ...check, errEmail: false });
-        if (/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(e.target.value)) {
-          setCheck({ ...check, errEmail: false });
-          setCheck({ ...check, email: true });
-        } else {
+        if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(e.target.value)) {
           setCheck({ ...check, email: false });
           setCheck({ ...check, errEmail: "Invalid email" });
         }
-      } else {
-        setCheck({ ...check, email: false });
-      }
+      } else setCheck({ ...check, email: false });
     } else {
       if (e.target.value != "") {
-        if (e.target.value.length >= 6) {
-          setCheck({ ...check, errPass: false });
-          setCheck({ ...check, pass: true });
-        } else {
+        if (e.target.value.length < 6) {
           setCheck({ ...check, pass: false });
           setCheck({
             ...check,
             errPass: "Password must be at least 6 characters long",
           });
-        }
-      } else {
-        setCheck({ ...check, pass: false });
-      }
+        } else setCheck({ ...check, errPass: false });
+      } else setCheck({ ...check, errPass: false });
     }
   };
 
@@ -77,12 +67,14 @@ export const AuthProvider = ({ children }) => {
         setCheck({ ...check, errEmail: false });
         if (/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(e.target.value)) {
           setCheck({ ...check, errEmail: false });
+          setCheck({ ...check, email: true });
         }
       }
     } else {
       if (e.target.value != "") {
         if (e.target.value.length >= 6) {
           setCheck({ ...check, errPass: false });
+          setCheck({ ...check, pass: true });
         }
       }
     }
