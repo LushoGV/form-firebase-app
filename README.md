@@ -6,11 +6,11 @@ React & Firebase Login
 
 - React { Context API }
 
-- Styled-Components
-
-- Vite
+- Chakra UI
 
 - Firebase
+
+- Vite
 
 ---
 
