@@ -10,7 +10,7 @@ React & Firebase Login
 
 - Vite
 
--- Firebase
+- Firebase
 
 ---
 
@@ -18,4 +18,4 @@ React & Firebase Login
 
 ---
 
-**[DEMO](https://simple-cart-tsx.vercel.app/)**
+**[DEMO](https://form-firebase-q6t7gzkpb-lushogv.vercel.app/login)**
